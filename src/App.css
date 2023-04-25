@@ -23,4 +23,11 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: minmax(40%, auto);
+  justify-items: center;
+}
+
+.formContainer {
+  width: 70%;
+  margin: auto;
+  margin-top: 150px;
 }

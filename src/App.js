@@ -140,6 +140,39 @@ function App() {
             />
           ))}
         </div>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+          }}
+          className="formContainer"
+        >
+          <label htmlFor="firstName">Unesite vase ime</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            required
+          ></input>{" "}
+          <br></br>
+          <label htmlFor="firstlast">Unesite vase prezime</label>
+          <input
+            type="text"
+            id="firstlast"
+            name="firstlast"
+            required
+          ></input>{" "}
+          <br></br>
+          <label htmlFor="email">Unesite vasu email adresu</label>
+          <input type="email" id="email" name="email" required></input>{" "}
+          <br></br>
+          <label htmlFor="hobi">Unesite vas hobi</label>
+          <input type="text" id="hobi" name="hobi"></input>
+          <br></br>
+          <label htmlFor="broj">Unesite vas broj telefona</label>
+          <input type="tel" id="broj" name="broj"></input>
+          <br></br>
+          <button>Potvrdi</button>
+        </form>
       </div>
     </>
   );
