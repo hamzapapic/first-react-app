@@ -1,11 +1,22 @@
+import React, { useEffect, useState } from "react";
 import React, { useState } from "react";
 import "./App.css";
 import Greeting from "./components/Greetings/Greeting";
 import { Navbar } from "./components/Navbar/Navbar";
-import Card from "./components/Cards/PersonCard/Card";
+import PersonCard from "./components/Cards/PersonCard/PersonCard";
 import persons from "./common/persons.json";
 import hotels from "./common/hotels.json";
+import teamsJSON from "./common/teams.json";
 import HotelCard from "./components/Cards/HotelCard/HotelCard";
+import Form from "./components/Form/Form";
+import TeamCard from "./components/Cards/TeamCard/TeamCard";
+import QuoteCard from "./components/Cards/QuoteCard/QuoteCard";
+import Pagination from "./components/Pagination/Pagination";
+import { Route, Routes } from "react-router-dom";
+import AboutUs from "./pages/AboutUs/AboutUs";
+import Hotels from "./pages/Hotels/Hotels";
+import Teams from "./pages/Teams/Teams";
+import Quotes from "./pages/Quotes/Quotes";
 
 // const persons = [
 //   {
@@ -37,11 +48,31 @@ import HotelCard from "./components/Cards/HotelCard/HotelCard";
 //     location: "Novi pazar, Serbia",
 //     goToRepositories: "https://github.com/harismuslic04?tab=repositories",
 //   },
+// const poruke = [
+//   "Danas je subota",
+//   "U subotu je lepo vreme",
+//   "Subota je dan za odmor",
+//   "Subota je dan za kupovinu",
+//   "Subota je dan za druzenje",
+//   "Subota je dan za kafu",
 // ];
+
+const poruke = [
+  "Danas je subota",
+  "U subotu je lepo vreme",
+  "Subota je dan za odmor",
+  "Subota je dan za kupovinu",
+  "Subota je dan za druzenje",
+  "Subota je dan za kafu",
+];
+
+export const BASE_URL = "https://api.quotable.io";
 
 function App() {
   // const [count, setCount] = React.useState(0);
   const [count, setCount] = useState(0);
+  const [arr, setArr] = useState(poruke);
+  // const [arr, setArr] = useState(poruke);
   // setCount je metoda pomocu koje menjamo vrednost count state_a:
   const increaseCount = () => {
     setCount(count + 1);
@@ -50,15 +81,57 @@ function App() {
     setCount(count - 1);
   };
   // const x = 10;
+
+  const reverseArr = () => {
+    const _arr = [...arr];
+    const reversed = _arr.reverse();
+    setArr(reversed);
+  };
+
+  const [teams, setTeams] = useState(teamsJSON);
+  console.log(teams);
+
+  // Brisanje tima:
+  const deleteTeam = (id) => {
+    const filteredTeams = teams.filter((team) => team.id !== id);
+    setTeams(filteredTeams);
+  };
+  const [quotes, setQuotes] = useState([]);
+  const [page, setPage] = useState(1);
+  const handlePageClick = (pageNumber) => {
+    setPage(pageNumber);
+  };
+
+  const getQuotes = async () => {
+    const getQuotes = await fetch(`${BASE_URL}/quotes?page=${page}`);
+    const data = await getQuotes.json();
+    const results = data.results;
+
+    setQuotes(results);
+    // console.log(data);
+    console.log(results);
+  };
+
+  console.log(quotes[0]?.content);
+
+  useEffect(() => {
+    getQuotes();
+  }, [page]);
+  // const reverseArr = () => {
+  //   const _arr = [...arr];
+  //   const reversed = _arr.reverse();
+  //   setArr(reversed);
+  // };
+
   return (
     //  React.createElement("p", {}, "Neki paragraf");
     <>
       {" "}
       {/* Fragment - najcesce se koristi za wrappovanje */}
-      <div className="App">
-        <Navbar>{/* <p>Samo za primer</p> */}</Navbar>
-        <Greeting appName={"Our First App"} username={"Bakir Ujkanovic"} />
-        <div
+      {/* <div className="App"> */}
+      {/* <Navbar><p>Samo za primer</p></Navbar>
+        <Greeting appName={"Our First App"} username={"Bakir Ujkanovic"} /> */}
+      {/* <div
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(4, 250px)",
@@ -66,8 +139,8 @@ function App() {
             gridAutoRows: "minmax(420px, auto)",
             gridGap: "40px",
           }}
-        >
-          {/* <Card
+        > */}
+      {/* <PersonCard
             imageURL={"https://avatars.githubusercontent.com/u/89378479?v=4"}
             fullName={"Dzenan Kosuta"}
             location={"Novi pazar, Serbia"}
@@ -78,14 +151,14 @@ function App() {
               "https://github.com/dzenankosuta?tab=repositories"
             }
           />
-          <Card
+          <PersonCard
             imageURL={"https://avatars.githubusercontent.com/u/111905831?v=4"}
             fullName={"Alen Muslic"}
             location={"Novi pazar, Serbia"}
             description={"Alen is rising Web developer..."}
             goToRepositories={"https://github.com/alenmuslic?tab=repositories"}
           />
-          <Card
+          <PersonCard
             imageURL={
               "https://www.borisradivojkov.com/assets/images/profesionalni-poslovni-portret-rukovodioca-600x600.jpg"
             }
@@ -94,7 +167,7 @@ function App() {
             description={"Aladin is rising Web developer..."}
             goToRepositories={"https://github.com/aladinzecic?tab=repositories"}
           />
-          <Card
+          <PersonCard
             imageURL={"https://avatars.githubusercontent.com/u/111905979?v=4"}
             fullName={"Haris Muslic"}
             location={"Novi pazar, Serbia"}
@@ -103,16 +176,17 @@ function App() {
               "https://github.com/harismuslic04?tab=repositories"
             }
           /> */}
-          {persons.map((person) => (
-            <Card
+      {/* {persons.map((person) => (
+            <PersonCard
+              key={person.id}
               imageURL={person.imageURL}
               fullName={person.fullName}
               location={person.location}
               description={person.description}
               goToRepositories={person.goToRepositories}
             />
-          ))}
-          <div>
+          ))} */}
+      {/* <div>
             <button style={{ width: "40px" }} onClick={decreaseCount}>
               -
             </button>
@@ -121,16 +195,17 @@ function App() {
               style={{ width: "40px" }}
               onClick={() => {
                 console.log("povecanje");
-                increaseCount();
+                setCount(count + 1);
               }}
             >
               +
             </button>
-          </div>
-        </div>
-        <div className="Hotels">
+          </div> */}
+      {/* </div> */}
+      {/* <div className="hotels">
           {hotels.map((hotel) => (
             <HotelCard
+              key={hotel.id}
               imageURL={hotel.imageURL}
               name={hotel.name}
               stars={hotel.stars}
@@ -139,43 +214,80 @@ function App() {
               reviews={hotel.reviews}
             />
           ))}
-        </div>
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
+        </div> */}
+      {/* <Form /> */}
+      {/* <div
+          style={{
+            height: "200px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "10px",
           }}
-          className="formContainer"
         >
-          <label htmlFor="firstName">Unesite vase ime</label>
-          <input
-            type="text"
-            id="firstName"
-            name="firstName"
-            required
-          ></input>{" "}
-          <br></br>
-          <label htmlFor="firstlast">Unesite vase prezime</label>
-          <input
-            type="text"
-            id="firstlast"
-            name="firstlast"
-            required
-          ></input>{" "}
-          <br></br>
-          <label htmlFor="email">Unesite vasu email adresu</label>
-          <input type="email" id="email" name="email" required></input>{" "}
-          <br></br>
-          <label htmlFor="hobi">Unesite vas hobi</label>
-          <input type="text" id="hobi" name="hobi"></input>
-          <br></br>
-          <label htmlFor="broj">Unesite vas broj telefona</label>
-          <input type="tel" id="broj" name="broj"></input>
-          <br></br>
-          <button>Potvrdi</button>
-        </form>
-      </div>
+          <button
+            onClick={() => {
+              reverseArr();
+              console.log("okrenuo se niz");
+            }}
+          >
+            Promeni raspored poruka
+          </button>
+          {arr.map((poruka) => (
+            <p>{poruka}</p>
+          ))}
+        </div> */}
+      {/* {teams.map((team) => (
+          <TeamCard
+            key={team.id}
+            name={team.name}
+            matches={team.matches}
+            points={team.points}
+            deleteTeam={() => deleteTeam(team.id)}
+          />
+        ))} */}
+      {/* <div className="quote-container">
+          {quotes.map((quote) => (
+            <QuoteCard author={quote.author} content={quote.content} />
+          ))}
+        </div> */}
+      {/* <Pagination currentPage={page} handlePageClick={handlePageClick} /> */}
+      {/* </div> */}
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Form />} />
+        <Route
+          path="/about-us"
+          element={
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(4, 250px)",
+                justifyContent: "center",
+                gridAutoRows: "minmax(420px, auto)",
+                gridGap: "40px",
+              }}
+            >
+              {persons.map((person) => (
+                <PersonCard
+                  key={person.id}
+                  imageURL={person.imageURL}
+                  fullName={person.fullName}
+                  location={person.location}
+                  description={person.description}
+                  goToRepositories={person.goToRepositories}
+                />
+              ))}
+            </div>
+          }
+        />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/hotels" element={<Hotels />} />
+        <Route path="/teams" element={<Teams />} />
+        <Route path="/quotes" element={<Quotes />} />
+      </Routes>
     </>
   );
 }
-
 export default App;
