@@ -1,6 +1,7 @@
 import React from "react";
 import "./Navbar.css";
 import { NavLink } from "react-router-dom";
+
 function Navbar(props) {
   const acitveStyles = {
     backgroundColor: "lightblue",
@@ -11,7 +12,6 @@ function Navbar(props) {
     margin: "20px",
   };
   const styles = {
-    backgroundColor: "blue",
     textDecoration: "none",
     color: "#fefefe",
     margin: "20px",
@@ -52,4 +52,5 @@ function Navbar(props) {
     </header>
   );
 }
+
 export { Navbar };

@@ -4,7 +4,6 @@ import persons from "../../common/persons.json";
 import "./AboutUs.css";
 
 export default function AboutUs() {
-  return <div>AboutUs</div>;
   return (
     <div className="about-us-container">
       {persons.map((person) => (
