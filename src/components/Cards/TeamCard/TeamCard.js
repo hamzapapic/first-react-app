@@ -19,6 +19,7 @@ function TeamCard({
       setClosed(true);
     }
   }, [extended]);
+
   useEffect(() => {
     if (!closed) {
       setExtended(id);
@@ -32,8 +33,15 @@ function TeamCard({
         <p>{name}</p>
         <p>Broj odigranih meceva: {matches}</p>
         <p>Broj poena: {points}</p>
-        <button onClick={deleteTeam}>Izbrisi tim</button>
-        <button onClick={() => {}}>
+        <button className="buttontable" onClick={deleteTeam}>
+          Izbrisi tim
+        </button>
+        <button
+          className="buttontable"
+          onClick={() => {
+            setClosed(!closed);
+          }}
+        >
           {closed ? <span>Prikazi vise</span> : <span>Prikazi manje</span>}
         </button>
       </div>

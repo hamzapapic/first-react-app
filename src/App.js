@@ -7,6 +7,8 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import Hotels from "./pages/Hotels/Hotels";
 import Teams from "./pages/Teams/Teams";
 import Quotes from "./pages/Quotes/Quotes";
+import { Register } from "./pages/Register/Register";
+import { Login } from "./pages/Login/Login";
 
 // const poruke = [
 //   "Danas je subota",
@@ -96,6 +98,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Form />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/hotels" element={<Hotels />} />
         <Route path="/teams" element={<Teams />} />

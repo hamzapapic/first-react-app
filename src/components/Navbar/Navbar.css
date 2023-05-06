@@ -1,6 +1,6 @@
 .header {
   height: 15vh;
-  background-color: rgb(36, 51, 91);
+  background-image: linear-gradient(to right, #07f2f2, purple);
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -10,4 +10,8 @@
 .logo {
   position: absolute;
   left: 20px;
+}
+
+.links {
+  font-family: Arial;
 }

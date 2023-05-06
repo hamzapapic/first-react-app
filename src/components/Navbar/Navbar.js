@@ -23,31 +23,43 @@ function Navbar(props) {
         style={({ isActive }) => (isActive ? acitveStyles : styles)}
         className="logo"
       >
-        <h1 style={{ fontFamily: "Arial" }}>Logo</h1>
+        <h1 className="links">Logo</h1>
+      </NavLink>
+      <NavLink
+        to={"/login"}
+        style={({ isActive }) => (isActive ? acitveStyles : styles)}
+      >
+        <h1 className="links">Login</h1>
+      </NavLink>
+      <NavLink
+        to={"/Register"}
+        style={({ isActive }) => (isActive ? acitveStyles : styles)}
+      >
+        <h1 className="links">Register</h1>
       </NavLink>
       <NavLink
         to={"/about-us"}
         style={({ isActive }) => (isActive ? acitveStyles : styles)}
       >
-        <h1 style={{ fontFamily: "Arial" }}>About Us</h1>
+        <h1 className="links">About Us</h1>
       </NavLink>
       <NavLink
         to={"/hotels"}
         style={({ isActive }) => (isActive ? acitveStyles : styles)}
       >
-        <h1 style={{ fontFamily: "Arial" }}>Hotels</h1>
+        <h1 className="links">Hotels</h1>
       </NavLink>
       <NavLink
         to={"/teams"}
         style={({ isActive }) => (isActive ? acitveStyles : styles)}
       >
-        <h1 style={{ fontFamily: "Arial" }}>Teams</h1>
+        <h1 className="links">Teams</h1>
       </NavLink>
       <NavLink
         to={"/quotes"}
         style={({ isActive }) => (isActive ? acitveStyles : styles)}
       >
-        <h1 style={{ fontFamily: "Arial" }}>Quotes</h1>
+        <h1 className="links">Quotes</h1>
       </NavLink>
     </header>
   );

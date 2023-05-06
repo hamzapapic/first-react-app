@@ -27,7 +27,7 @@
 .container {
   margin-top: 20px;
   margin-left: 40px;
-
+  overflow: none;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
