@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./App.css";
 import { Navbar } from "./components/Navbar/Navbar";
 import Form from "./components/Form/Form";
@@ -10,7 +10,7 @@ import Quotes from "./pages/Quotes/Quotes";
 import { Register } from "./pages/Register/Register";
 import { Login } from "./pages/Login/Login";
 import { AppContext } from "./context/AppContext";
-
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 // const poruke = [
 //   "Danas je subota",
 //   "U subotu je lepo vreme",
@@ -40,7 +40,11 @@ function App() {
   //   const reversed = _arr.reverse();
   //   setArr(reversed);
   // };
-  const { token } = useContext(AppContext);
+  const { token, setToken } = useContext(AppContext);
+  useEffect(() => {
+    const localToken = localStorage.getItem("token");
+    setToken(localToken);
+  }, []);
   return (
     //  React.createElement("p", {}, "Neki paragraf");
     <>
@@ -98,14 +102,41 @@ function App() {
         </div> */}
       <Navbar />
       <Routes>
-        <Route path="/" element={<Form />} />
         <Route path="/" element={token ? <Hotels /> : <Login />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/hotels" element={<Hotels />} />
-        <Route path="/teams" element={<Teams />} />
-        <Route path="/quotes" element={<Quotes />} />
+        <Route
+          path="/about-us"
+          element={
+            <ProtectedRoute>
+              <AboutUs />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/hotels"
+          element={
+            <ProtectedRoute>
+              <Hotels />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/teams"
+          element={
+            <ProtectedRoute>
+              <Teams />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/quotes"
+          element={
+            <ProtectedRoute>
+              <Quotes />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );
