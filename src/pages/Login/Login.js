@@ -1,18 +1,28 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./Login.css";
 import axios from "axios";
 import { BASE_URL } from "../../config/api";
-import { useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../context/AppContext";
+
 export function Login() {
-  const navigation = useNavigation();
+  const navigation = useNavigate();
+  const { setToken } = useContext(AppContext);
+  const [message, setMessage] = useState("");
   async function loginUser(data) {
     try {
       const user = await axios.post(`${BASE_URL}/users/login`, data);
       const userInfo = await user.data;
       console.log(userInfo);
+      // console.log(userInfo.token);
+      localStorage.setItem("token", userInfo.token);
+      setToken(userInfo.token);
       navigation("/");
     } catch (err) {
       console.log(err.response.data.err);
+      localStorage.removeItem("token");
+      setToken(null);
+      setMessage(err.response.data.err);
     }
   }
 
@@ -34,6 +44,9 @@ export function Login() {
     <div className="cointener">
       <form>
         <h1>Login</h1>
+        <h2 style={{ textAlign: "center", color: "red" }}>
+          {message && message}
+        </h2>
         <label className="label">Email</label>
         <input
           className="input"
@@ -58,7 +71,7 @@ export function Login() {
           }}
           required
         ></input>
-        <button id="login" className="button1" onClick={handleClick}>
+        <button id="login" onClick={handleClick}>
           Login
         </button>
       </form>

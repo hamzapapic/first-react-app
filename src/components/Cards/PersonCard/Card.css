@@ -50,3 +50,8 @@
   position: absolute;
   top: 130px;
 }
+
+.card:hover {
+  transform: scale(1.2);
+  transition: all 1s ease-in;
+}

@@ -1,6 +1,6 @@
 .header {
   height: 15vh;
-  background-image: linear-gradient(to right, #07f2f2, purple);
+  background-image: linear-gradient(to right, orange, purple);
   display: flex;
   justify-content: flex-end;
   align-items: center;
