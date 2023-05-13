@@ -71,7 +71,7 @@ export function Login() {
           }}
           required
         ></input>
-        <button id="login" onClick={handleClick}>
+        <button id="login" className="button2" onClick={handleClick}>
           Login
         </button>
       </form>

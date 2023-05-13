@@ -1,6 +1,6 @@
 import React from "react";
 import "./HotelCard.css";
-
+import hotels from "../../../common/hotels.json";
 export default function HotelCard(props) {
   const oneStar = <span>⭐</span>;
   const halfStar = <span style={{ color: "yellow" }}>✩</span>;
@@ -60,7 +60,10 @@ export default function HotelCard(props) {
           {/* 1. nacin uslovnog prikazivanja (Conditional rendering) */}
           {/* {showRecomendation && <p>Recomendation</p>} */}
           {/* 2. nacin uslovnog prikazivanja (Conditional rendering) */}
-          {showRecomendation ? <p>Recomendation</p> : <></>}
+          {showRecomendation ? <p>Recommended!</p> : <></>}
+          <a href={"hotels/1"}>
+            <button className="hotelbook">Book Now</button>
+          </a>
         </div>
       </div>
     </div>

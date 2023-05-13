@@ -26,3 +26,12 @@
 .hotelrat {
   font-weight: bold;
 }
+
+.hotelbook {
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+}
